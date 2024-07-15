@@ -1,19 +1,20 @@
 import React from "react";
-import { Layout, Menu, theme } from "antd";
-import { Outlet, useNavigate } from "react-router-dom";
-import { adminPaths } from "../../routes/paths/adminPaths";
-import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
+import { Button, Layout } from "antd";
+import Sidebar from "./Sidebar";
+import { Outlet } from "react-router-dom";
+import { useAppDispatch } from "../../redux/hook";
+import { signOut } from "../../redux/features/auth/authSlice";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
-function getItem(label, key, icon, children?) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
+// function getItem(label, key, icon, children?) {
+//   return {
+//     key,
+//     icon,
+//     children,
+//     label,
+//   };
+// }
 
 // const items = [
 //   getItem("Dashboard", "/dashboard", <UserOutlined />),
@@ -56,51 +57,30 @@ function getItem(label, key, icon, children?) {
 //     ],
 //   },
 // ];
-const items = sidebarItemsGenerator(adminPaths)
 
 const DashboardLayout: React.FC = () => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div className="demo-logo-vertical" />
-        <h2 className="text-xl md:text-2xl text-white text-center py-2">UMS</h2>
-        <Menu
-          // onClick={({ key }) => {
-          //   key ? navigate(key) : navigate("/dashboard");
-          // }}
-          theme="dark"
-          defaultSelectedKeys={["dashboard"]}
-          mode="inline"
-          items={items}
-        />
-      </Sider>
+      <Sidebar />
+
       <Layout className="min-h-screen">
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "24px 16px 0" }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            <Outlet />
-          </div>
+        <Header className="bg-white flex justify-between items-center sticky top-0 shadow">
+          <ul className="flex gap-1 items-center">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+          <Button onClick={() => dispatch(signOut())} type="default">
+            Sign out
+          </Button>
+        </Header>
+        <Content
+          style={{ margin: "24px 16px 0" }}
+          className="bg-white rounded-lg shadow p-5"
+        >
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

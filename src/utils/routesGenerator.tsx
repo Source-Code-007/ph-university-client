@@ -1,30 +1,19 @@
-import { ReactNode } from "react";
+import { TRoute, TRoutes } from "../types/index.type";
 
-type TRoute = {
-  path: string;
-  element: ReactNode;
-};
-
-type TRoutes = {
-  name: string;
-  path: string;
-  element?: ReactNode;
-  children?: TRoutes[];
-};
 
 export const routesGenerator = (adminPaths: TRoutes[]): TRoute[] => {
   return adminPaths.reduce((acc: TRoute[], item) => {
-    if (item.path && !item.children) {
+    if (item.name && item.path && !item.children) {
       acc.push({
         path: item.path,
         element: item.element,
       });
     }
 
-    if (item.path && item.children) {
+    if (item.name && item.children) {
       item.children.forEach((child) => {
         acc.push({
-          path: child.path,
+          path: child.path!,
           element: child.element,
         });
       });

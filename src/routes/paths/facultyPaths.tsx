@@ -5,7 +5,6 @@ export const facultyPaths = [
   { name: "My Faculty", path: "my-faculty", element: <App /> },
   {
     name: "Course management",
-    path: "course-management",
     children: [
       { name: "Course", path: "create-course", element: <App /> },
     ],
