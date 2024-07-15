@@ -2,8 +2,9 @@ import React from "react";
 import { Button, Layout } from "antd";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
-import { useAppDispatch } from "../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { signOut } from "../../redux/features/auth/authSlice";
+import { TDecodedUser } from "../../types/index.type";
 
 const { Header, Content } = Layout;
 
@@ -60,6 +61,8 @@ const { Header, Content } = Layout;
 
 const DashboardLayout: React.FC = () => {
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
+  const { role } = user as TDecodedUser;
 
   return (
     <Layout>
@@ -67,11 +70,7 @@ const DashboardLayout: React.FC = () => {
 
       <Layout className="min-h-screen">
         <Header className="bg-white flex justify-between items-center sticky top-0 shadow">
-          <ul className="flex gap-1 items-center">
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-          </ul>
+          <h2 className="uppercase text-primary font-bold">{role}</h2>
           <Button onClick={() => dispatch(signOut())} type="default">
             Sign out
           </Button>

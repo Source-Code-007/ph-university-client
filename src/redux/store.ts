@@ -33,7 +33,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(logger, baseApi.middleware),
+    }).concat(baseApi.middleware),
 
   // devTools: false // for production website to disable redux devtools
 });
