@@ -1,4 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  BaseQueryFn,
+  createApi,
+  DefinitionType,
+  FetchArgs,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
 import { setUser, signOut } from "../features/auth/authSlice";
 
@@ -16,9 +23,12 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
+const baseQueryWithRefreshToken: BaseQueryFn<
+  FetchArgs,
+  BaseQueryApi,
+  DefinitionType
+> = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log(result);
   if (result?.error?.status === 401) {
     const refreshTokenReq = await fetch(
       `${import.meta.env.VITE_SERVER_BASE_URL}/auth/refresh-token`,
@@ -30,8 +40,8 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
       const user = (api.getState() as RootState).auth.user;
       api.dispatch(setUser({ user, token: refreshToken?.data?.accessToken }));
       result = await baseQuery(args, api, extraOptions);
-    } else{
-      api.dispatch(signOut())
+    } else {
+      api.dispatch(signOut());
     }
   }
 

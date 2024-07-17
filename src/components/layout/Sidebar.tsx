@@ -45,6 +45,7 @@ const Sidebar: React.FC = () => {
       onCollapse={(collapsed, type) => {
         console.log(collapsed, type);
       }}
+      className="!h-screen !sticky !top-0"
     >
       <div className="demo-logo-vertical" />
       <h2 className="text-xl md:text-2xl text-white text-center py-2">UMS</h2>

@@ -1,10 +1,9 @@
 import { Button, Form, FormProps, Input, message, Typography } from "antd";
 import { useSigninMutation } from "../redux/features/auth/authApi";
-import Container from "../components/ui/Container";
-import { useAppDispatch } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { setUser } from "../redux/features/auth/authSlice";
 import verifyJwtToken from "../utils/verifyJwtToken";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { TDecodedUser } from "../types/index.type";
 
 type TSigninFieldType = {
@@ -16,7 +15,14 @@ const Signin = () => {
   const [signin, { isLoading }] = useSigninMutation();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const { token, user } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  const { role } = (user as TDecodedUser) || {};
+
+  if (token && role) {
+    return <Navigate to={`/${role}/dashboard`} replace />; //TODO back to location history
+  }
 
   const handleSignin: FormProps<TSigninFieldType>["onFinish"] = async (
     data

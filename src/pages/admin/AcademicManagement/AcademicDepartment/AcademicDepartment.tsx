@@ -2,7 +2,7 @@ import { useGetAcademicDepartmentQuery } from "../../../../redux/features/academ
 
 const AcademicDepartment = () => {
   const { data: academicDepartment, isLoading: isLoadingAcademicDepartment } =
-    useGetAcademicDepartmentQuery();
+    useGetAcademicDepartmentQuery(null);
 
   console.log(academicDepartment, "academicDepartment");
 
