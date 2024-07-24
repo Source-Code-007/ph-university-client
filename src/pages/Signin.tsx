@@ -5,6 +5,7 @@ import { setUser } from "../redux/features/auth/authSlice";
 import verifyJwtToken from "../utils/verifyJwtToken";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TDecodedUser } from "../types/index.type";
+import MyInp from "../components/ui/Form/MyInp";
 
 type TSigninFieldType = {
   id?: string;
@@ -27,6 +28,9 @@ const Signin = () => {
   const handleSignin: FormProps<TSigninFieldType>["onFinish"] = async (
     data
   ) => {
+    console.log(data);
+
+    return;
     try {
       const result = await signin(data).unwrap();
       if (result.success) {
@@ -54,39 +58,30 @@ const Signin = () => {
           form={form}
           layout="vertical"
         >
-          <Form.Item
+          <MyInp
+            type="text"
             name="id"
             label="Id"
+            placeholder="Input your id"
             rules={[
               {
                 required: true,
                 message: "Id is required!",
               },
             ]}
-          >
-            <Input
-              size="large"
-              placeholder="Input your id"
-              // className="my-inp"
-              // defaultValue={"admin@gmail.com"}
-            />
-          </Form.Item>
-          <Form.Item
+          />
+          <MyInp
+            type="password"
             name="password"
             label="Password"
+            placeholder="Input your password"
             rules={[
               {
                 required: true,
                 message: "Password is required!",
               },
             ]}
-          >
-            <Input.Password
-              size="large"
-              placeholder="Input your password"
-              // defaultValue={"123456"}
-            />
-          </Form.Item>
+          />
           <Button
             htmlType="submit"
             type="primary"
