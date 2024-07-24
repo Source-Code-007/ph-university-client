@@ -1,6 +1,5 @@
 import { Layout, Menu } from "antd";
 import React, { ReactNode } from "react";
-import { TRole } from "../../types/index.type";
 import { adminPaths } from "../../routes/paths/adminPaths";
 import { sidebarItemsGenerator } from "../../utils/sidebarItemsGenerator";
 import { facultyPaths } from "../../routes/paths/facultyPaths";

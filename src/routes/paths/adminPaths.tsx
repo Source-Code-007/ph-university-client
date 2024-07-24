@@ -1,10 +1,12 @@
 import App from "../../App";
 import AcademicDepartment from "../../pages/admin/AcademicManagement/AcademicDepartment/AcademicDepartment";
 import AcademicFaculty from "../../pages/admin/AcademicManagement/AcademicFaculty/AcademicFaculty";
+import Admin from "../../pages/admin/UserManagement/Admin/Admin";
+import Faculty from "../../pages/admin/UserManagement/Faculty/Faculty";
+import Student from "../../pages/admin/UserManagement/Student/Student";
 
 export const adminPaths = [
   { name: "Dashboard", path: "dashboard", element: <App /> },
-  { name: "Test", path: "test", element: <App /> },
   {
     name: "Academic management",
     children: [
@@ -23,12 +25,9 @@ export const adminPaths = [
   {
     name: "User management",
     children: [
-      { name: "Admin", path: "admin", element: <h2>Admin</h2> },
-      { name: "Create admin", path: "create-admin", element: <App /> },
-      { name: "Faculty", path: "faculty", element: <App /> },
-      { name: "Create faculty", path: "create-faculty", element: <App /> },
-      { name: "Student", path: "student", element: <App /> },
-      { name: "Create student", path: "create-student", element: <App /> },
+      { name: "Admin", path: "admin", element: <Admin /> },
+      { name: "Faculty", path: "faculty", element: <Faculty /> },
+      { name: "Student", path: "student", element: <Student /> },
     ],
   },
 ];

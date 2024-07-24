@@ -6,7 +6,9 @@ const AcademicDepartment = () => {
 
   console.log(academicDepartment, "academicDepartment");
 
-  return <div>Academic department</div>;
+  return <div className="h-screen flex items-center justify-center">
+    Academic department
+  </div>;
 };
 
 export default AcademicDepartment;
