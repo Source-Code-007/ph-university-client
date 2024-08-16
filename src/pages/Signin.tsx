@@ -28,9 +28,6 @@ const Signin = () => {
   const handleSignin: FormProps<TSigninFieldType>["onFinish"] = async (
     data
   ) => {
-    console.log(data);
-
-    return;
     try {
       const result = await signin(data).unwrap();
       if (result.success) {
@@ -45,9 +42,11 @@ const Signin = () => {
   };
 
   return (
-    <div className="min-h-screen flex mx-auto justify-center items-center">
-      <div className="p-8 md:p-10 my-shadow-1 rounded-md w-5/6 sm:w-4/6 md:3/6 lg:w-2/6">
-        <Typography.Title level={3}>UMS Login</Typography.Title>
+    <div className="min-h-screen flex mx-auto justify-center items-center bg-slate-50">
+      <div className="p-8 md:p-10 my-shadow-1 rounded-md w-5/6 sm:w-4/6 md:3/6 lg:w-2/6 bg-white">
+        <Typography.Title level={3} className="!mb-0">
+          UMS Login
+        </Typography.Title>
         <Typography.Text type="secondary" className="text-normal-desc">
           To manage university account
         </Typography.Text>
@@ -57,11 +56,13 @@ const Signin = () => {
           // autoComplete="off"
           form={form}
           layout="vertical"
+          className="mt-2 "
         >
           <MyInp
             type="text"
             name="id"
             label="Id"
+            size="large"
             placeholder="Input your id"
             rules={[
               {
@@ -74,6 +75,7 @@ const Signin = () => {
             type="password"
             name="password"
             label="Password"
+            size="large"
             placeholder="Input your password"
             rules={[
               {

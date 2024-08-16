@@ -1,12 +1,8 @@
-import App from "../../App";
-
 export const facultyPaths = [
-  { name: "Dashboard", path: "dashboard", element: <App /> },
-  { name: "My Faculty", path: "my-faculty", element: <App /> },
+  { name: "Dashboard", path: "dashboard", element: "Test" },
+  { name: "My Faculty", path: "my-faculty", element: "Test" },
   {
     name: "Course management",
-    children: [
-      { name: "Course", path: "create-course", element: <App /> },
-    ],
+    children: [{ name: "Course", path: "create-course", element: "Test" }],
   },
 ];

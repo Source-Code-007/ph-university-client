@@ -8,56 +8,6 @@ import { TDecodedUser } from "../../types/index.type";
 
 const { Header, Content } = Layout;
 
-// function getItem(label, key, icon, children?) {
-//   return {
-//     key,
-//     icon,
-//     children,
-//     label,
-//   };
-// }
-
-// const items = [
-//   getItem("Dashboard", "/dashboard", <UserOutlined />),
-
-//   getItem("Academic Info", "/dashboard/academic-info", <InfoCircleOutlined />),
-//   getItem("App", "/dashboard/test", <UserOutlined />),
-
-// ];
-// const items = [
-//   {
-//     key: "Test",
-//     icon: <UserOutlined />,
-//     label: <NavLink to={`/admin/student`}>Student</NavLink>,
-//   },
-//   {
-//     key: "2",
-//     icon: <UserOutlined />,
-//     label: <NavLink to={`/admin/faculty`}>Faculty</NavLink>,
-//   },
-//   {
-//     key: "2",
-//     icon: <UserOutlined />,
-//     label: "User management",
-//     children: [
-//       {
-//         key: "22",
-//         icon: <UserOutlined />,
-//         label: <NavLink to={`/admin/student`}>Student</NavLink>,
-//       },
-//       {
-//         key: "23",
-//         icon: <UserOutlined />,
-//         label: <NavLink to={`/admin/faculty`}>Faculty</NavLink>,
-//       },
-//       {
-//         key: "24",
-//         icon: <UserOutlined />,
-//         label: <NavLink to={`/admin/admin`}>Admin</NavLink>,
-//       },
-//     ],
-//   },
-// ];
 
 const DashboardLayout: React.FC = () => {
   const dispatch = useAppDispatch();

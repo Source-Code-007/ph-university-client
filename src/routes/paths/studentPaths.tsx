@@ -1,7 +1,5 @@
-import App from "../../App";
-
 export const studentPaths = [
-  { name: "Dashboard", path: "dashboard", element: <App /> },
-  { name: "Course", path: "course", element: <App /> },
-
+  { name: "Dashboard", path: "dashboard", element: "Test" },
+  { name: "Course", path: "course", element: "Test" },
 ];
+ 

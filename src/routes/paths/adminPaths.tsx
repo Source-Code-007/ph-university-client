@@ -1,12 +1,11 @@
-import App from "../../App";
-import AcademicDepartment from "../../pages/admin/AcademicManagement/AcademicDepartment/AcademicDepartment";
-import AcademicFaculty from "../../pages/admin/AcademicManagement/AcademicFaculty/AcademicFaculty";
-import Admin from "../../pages/admin/UserManagement/Admin/Admin";
-import Faculty from "../../pages/admin/UserManagement/Faculty/Faculty";
-import Student from "../../pages/admin/UserManagement/Student/Student";
+import AcademicDepartment from "../../pages/admin/AcademicManagement/AcademicDepartment";
+import AcademicFaculty from "../../pages/admin/AcademicManagement/AcademicFaculty";
+import Admin from "../../pages/admin/UserManagement/Admin";
+import Faculty from "../../pages/admin/UserManagement/Faculty";
+import Student from "../../pages/admin/UserManagement/Student";
 
 export const adminPaths = [
-  { name: "Dashboard", path: "dashboard", element: <App /> },
+  { name: "Dashboard", path: "dashboard", element: 'Admin home' },
   {
     name: "Academic management",
     children: [
