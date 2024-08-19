@@ -1,3 +1,4 @@
+import { TParams } from "../../../types/index.type";
 import { baseApi } from "../../api/baseApi";
 
 export const academicManagementApi = baseApi.injectEndpoints({
@@ -11,11 +12,16 @@ export const academicManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
-    getAcademicDepartment: builder.query({
-      query: () => {
+    getAllAcademicDepartment: builder.query({
+      query: (filter) => {
+        const params = new URLSearchParams();
+        filter.forEach((item: TParams) => {
+          params.append(item.name, item.value);
+        });
         return {
           url: "/academic-department",
           method: "GET",
+          params: params,
         };
       },
     }),
@@ -27,11 +33,30 @@ export const academicManagementApi = baseApi.injectEndpoints({
         };
       },
     }),
+    updateAcademicDepartment: builder.mutation({
+      query: (payload) => {
+        return {
+          url: `/academic-department/${payload?._id}`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
+    deleteAcademicDepartment: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/academic-department/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 
 export const {
   useInsertAcademicDepartmentMutation,
-  useGetAcademicDepartmentQuery,
+  useGetAllAcademicDepartmentQuery,
   useGetSingleAcademicDepartmentQuery,
+  useUpdateAcademicDepartmentMutation,
+  useDeleteAcademicDepartmentMutation,
 } = academicManagementApi;
