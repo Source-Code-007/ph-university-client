@@ -5,3 +5,36 @@
 .my-shadow-1 {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
 }
+
+/*Custom scrollbar  */
+body,
+.my-scrollbar {
+  --sb-track-color: #b8c4d8fe;
+  --sb-thumb-color: #05668d;
+  --sb-size: 10px;
+}
+body::-webkit-scrollbar,
+.my-scrollbar::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track,
+.my-scrollbar::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+body::-webkit-scrollbar-thumb,
+.my-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+  .my-scrollbar {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}

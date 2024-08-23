@@ -1,8 +1,8 @@
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import React from "react";
 
 type MyInpProps = {
-  name: string;
+  name: string | string[];
   label: string;
   type:
     | "text"
@@ -12,10 +12,13 @@ type MyInpProps = {
     | "checkbox"
     | "radio"
     | "select"
-    | "textarea";
-  rules: any[];
+    | "textarea"
+    | "date";
+  rules?: any[];
+  disabled?: boolean;
   placeholder: string;
   defaultValue?: string;
+  options?: { label: string; value: string }[];
   size?: "small" | "middle" | "large";
 };
 
@@ -27,16 +30,36 @@ const MyInp: React.FC<MyInpProps> = ({
   name,
   label,
   rules,
-  size,
+  options,
+  disabled,
+  size = "large",
 }) => {
   return (
-    <Form.Item name={name} label={label} rules={rules}>
+    <Form.Item name={name} label={label} rules={rules} className="flex-1">
       {type === "text" ? (
-        <Input size={size} placeholder={placeholder} />
+        <Input size={size} placeholder={placeholder} disabled={disabled} />
       ) : type === "password" ? (
-        <Input.Password size={size} placeholder={placeholder} />
+        <Input.Password
+          size={size}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
+      ) : type === "select" ? (
+        <Select
+          size={size}
+          placeholder={placeholder}
+          options={options}
+          disabled={disabled}
+        />
+      ) : type === "date" ? (
+        <Input
+          type="date"
+          size={size}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
       ) : (
-        <Input size={size} placeholder={placeholder} />
+        <Input size={size} placeholder={placeholder} disabled={disabled} />
       )}
     </Form.Item>
   );

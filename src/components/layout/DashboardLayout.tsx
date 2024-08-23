@@ -8,7 +8,6 @@ import { TDecodedUser } from "../../types/index.type";
 
 const { Header, Content } = Layout;
 
-
 const DashboardLayout: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
@@ -19,7 +18,7 @@ const DashboardLayout: React.FC = () => {
       <Sidebar />
 
       <Layout className="min-h-screen">
-        <Header className="bg-white flex justify-between items-center sticky top-0 shadow">
+        <Header className="bg-white flex justify-between items-center sticky top-0 shadow z-50">
           <h2 className="uppercase text-primary font-bold">{role}</h2>
           <Button onClick={() => dispatch(signOut())} type="default">
             Sign out
