@@ -1,4 +1,4 @@
-import { Form, Input, Select } from "antd";
+import { Form, Input, InputNumber, Select } from "antd";
 import React from "react";
 
 type MyInpProps = {
@@ -38,6 +38,12 @@ const MyInp: React.FC<MyInpProps> = ({
     <Form.Item name={name} label={label} rules={rules} className="flex-1">
       {type === "text" ? (
         <Input size={size} placeholder={placeholder} disabled={disabled} />
+      ) : type === "number" ? (
+        <InputNumber
+          size={size}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
       ) : type === "password" ? (
         <Input.Password
           size={size}

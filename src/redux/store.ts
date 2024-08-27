@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logger from "./middleware/logger";
 import { baseApi } from "./api/baseApi";
 import authSlice from "./features/auth/authSlice";
 import {

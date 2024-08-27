@@ -135,6 +135,15 @@ const AcademicDepartment = () => {
             record.isDeleted ? "opacity-50 pointer-events-none" : ""
           }
           scroll={{ x: 800 }}
+          pagination={{
+            position: ["bottomCenter"],
+            total: academicDepartment?.meta?.total,
+            current: pagination.page,
+            pageSize: pagination.limit,
+            onChange: (page, pageSize) => {
+              setPagination({ page, limit: pageSize });
+            },
+          }}
         />
       )}
 

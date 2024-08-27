@@ -1,7 +1,7 @@
 import { Modal } from "antd";
 import React from "react";
 import moment from "moment";
-import { TStudent } from "../../../../types/Student.types";
+import { TStudent } from "../../../../types/student.types";
 
 type TProps = {
   detailsModalVisible: boolean;

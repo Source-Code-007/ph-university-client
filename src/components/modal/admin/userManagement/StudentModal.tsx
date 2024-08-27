@@ -32,20 +32,26 @@ const StudentModal = ({
   const { data: academicDepartments, isLoading: isLoadingAcademicDepartments } =
     useGetAllAcademicDepartmentQuery([]);
   const { data: batches, isLoading: isLoadingBatches } = useGetAllBatchQuery([
-    {
-      name: "department",
-      value: selectedAcademicDepartment,
-    },
+    ...(selectedAcademicDepartment
+      ? [
+          {
+            name: "department",
+            value: selectedAcademicDepartment,
+          },
+        ]
+      : []),
   ]);
   const [createStudent, { isLoading: isLoadingCreateStudent }] =
     useInsertStudentMutation();
-  const [updateStudent] = useUpdateStudentMutation();
+  const [updateStudent, { isLoading: isLoadingUpdateStudent }] =
+    useUpdateStudentMutation();
 
   useEffect(() => {
     if (editingStudent) {
       form.setFieldsValue({
         ...editingStudent,
         academicInfo: {
+          ...editingStudent.academicInfo,
           department: editingStudent.academicInfo?.department?._id,
           batch: {
             value: editingStudent.academicInfo?.batch?._id,
@@ -56,9 +62,10 @@ const StudentModal = ({
     }
   }, [form, editingStudent]);
 
-  console.log(editingStudent?.name, "name");
-
   const handleCreateStudent = async (values: TStudent) => {
+    console.log(values, "values");
+
+    // return;
     try {
       const result = (await createStudent(
         values
@@ -108,169 +115,260 @@ const StudentModal = ({
         setModalVisible(false);
       }}
       width={1000}
-      className="p-4 bg-white rounded"
+      className="p-6 bg-white rounded-lg my-scrollbar max-h-[80vh] overflow-y-scroll"
       footer={null}
     >
       <h2 className="font-bold text-xl mb-4">
         {editingStudent ? "Update student" : "Add student"}
       </h2>
-      {isLoadingAcademicDepartments || isLoadingBatches ? (
-        <>
-          <Skeleton active />
-          <Skeleton active />
-          <Skeleton active />
-        </>
-      ) : (
-        <Form
-          layout="vertical"
-          form={form}
-          onFinish={editingStudent ? handleUpdateStudent : handleCreateStudent}
-        >
-          {/* Personal Information */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Personal Information</h3>
-            <div className="flex flex-wrap gap-4">
+
+      <Form
+        layout="vertical"
+        form={form}
+        onFinish={editingStudent ? handleUpdateStudent : handleCreateStudent}
+      >
+        {/* Personal Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2">Personal Information</h3>
+          {/* Name */}
+          <div className="flex flex-wrap gap-4">
+            <MyInp
+              name={["name", "firstName"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input first name!",
+                },
+              ]}
+              label="First Name"
+              placeholder="Enter first name"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name={["name", "middleName"]}
+              label="Middle Name"
+              placeholder="Enter middle name"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name={["name", "lastName"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input last name!",
+                },
+              ]}
+              label="Last Name"
+              placeholder="Enter last name"
+              type="text"
+              size="large"
+            />
+          </div>
+          {/* Gender, DOB, BG */}
+          <div className="flex flex-wrap gap-4">
+            <MyInp
+              name="gender"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select gender!",
+                },
+              ]}
+              label="Gender"
+              placeholder="Select gender"
+              type="select"
+              size="large"
+              options={[
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
+              ]}
+            />
+            <MyInp
+              name="dateOfBirth"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select date of birth!",
+                },
+              ]}
+              label="Date of Birth"
+              placeholder="Select date of birth"
+              type="date"
+              size="large"
+            />
+            <MyInp
+              name="bloodGroup"
+              label="Blood Group"
+              placeholder="Enter blood group"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select blood group!",
+                },
+              ]}
+              type="select"
+              size="large"
+              options={["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(
+                (elem) => ({ value: elem, label: elem })
+              )}
+            />
+          </div>
+          {/* Email, phone */}
+          <div className="flex flex-wrap gap-4">
+            <MyInp
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input email!",
+                },
+                {
+                  type: "email",
+                  message: "Please input a valid email!",
+                },
+              ]}
+              label="Email"
+              placeholder="Enter email"
+              type="email"
+              size="large"
+            />
+            <MyInp
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input phone number!",
+                },
+              ]}
+              label="Phone"
+              placeholder="Enter phone number"
+              type="text"
+              size="large"
+            />
+            {!editingStudent && (
               <MyInp
-                name={["name", "firstName"]}
+                name="password"
                 rules={[
                   {
                     required: true,
-                    message: "Please input first name!",
+                    message: "Please input password!",
                   },
                 ]}
-                label="First Name"
-                placeholder="Enter first name"
-                type="text"
+                label="Password"
+                placeholder="Enter password"
+                type="password"
                 size="large"
               />
-              <MyInp
-                name={["name", "middleName"]}
-                label="Middle Name"
-                placeholder="Enter middle name"
-                type="text"
-                size="large"
-              />
-              <MyInp
-                name={["name", "lastName"]}
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input last name!",
-                  },
-                ]}
-                label="Last Name"
-                placeholder="Enter last name"
-                type="text"
-                size="large"
-              />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <MyInp
-                name="gender"
-                label="Gender"
-                placeholder="Select gender"
-                type="select"
-                size="large"
-                options={[
-                  { value: "male", label: "Male" },
-                  { value: "female", label: "Female" },
-                  { value: "other", label: "Other" },
-                ]}
-              />
-              <MyInp
-                name="dateOfBirth"
-                label="Date of Birth"
-                placeholder="Select date of birth"
-                type="date"
-                size="large"
-              />
-              <MyInp
-                name="bloodGroup"
-                label="Blood Group"
-                placeholder="Enter blood group"
-                type="text"
-                size="large"
-              />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <MyInp
-                name="email"
-                label="Email"
-                placeholder="Enter email"
-                type="email"
-                size="large"
-              />
-              <MyInp
-                name="phone"
-                label="Phone"
-                placeholder="Enter phone number"
-                type="text"
-                size="large"
-              />
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <MyInp
-                name="nid"
-                label="National ID"
-                placeholder="Enter national ID"
-                type="text"
-                size="large"
-              />
-              <MyInp
-                name="presentAddress"
-                label="Present Address"
-                placeholder="Enter present address"
-                type="text"
-                size="large"
-              />
-              <MyInp
-                name="permanentAddress"
-                label="Permanent Address"
-                placeholder="Enter permanent address"
-                type="text"
-                size="large"
-              />
-            </div>
+            )}
           </div>
-
-          {/* Guardian Information */}
-          <div>
-            <h3 className="text-lg font-semibold mb-2 mt-6">
-              Guardian Information
-            </h3>
-            <div className="flex flex-wrap gap-4">
-              <MyInp
-                name={["guardian", "name"]}
-                label="Guardian Name"
-                placeholder="Enter guardian's name"
-                type="text"
-                size="large"
-              />
-              <MyInp
-                name={["guardian", "phone"]}
-                label="Guardian Phone"
-                placeholder="Enter guardian's phone number"
-                type="text"
-                size="large"
-              />
-              <MyInp
-                name={["guardian", "email"]}
-                label="Guardian Email"
-                placeholder="Enter guardian's email"
-                type="email"
-                size="large"
-              />
-              <MyInp
-                name={["guardian", "age"]}
-                label="Guardian Age"
-                placeholder="Enter guardian's age"
-                type="text"
-                size="large"
-              />
-            </div>
+          {/* NID, PreAdd, PerAdd */}
+          <div className="flex flex-wrap gap-4">
+            <MyInp
+              name="nid"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input national ID!",
+                },
+              ]}
+              label="National ID"
+              placeholder="Enter national ID"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name="presentAddress"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input present address!",
+                },
+              ]}
+              label="Present Address"
+              placeholder="Enter present address"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name="permanentAddress"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input permanent address!",
+                },
+              ]}
+              label="Permanent Address"
+              placeholder="Enter permanent address"
+              type="text"
+              size="large"
+            />
           </div>
+        </div>
 
-          {/* Academic Information */}
+        {/* Guardian Information */}
+        <div>
+          <h3 className="text-lg font-semibold mb-2 mt-6">
+            Guardian Information
+          </h3>
+          <div className="flex flex-wrap gap-4">
+            <MyInp
+              name={["guardian", "name"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input guardian's name!",
+                },
+              ]}
+              label="Guardian Name"
+              placeholder="Enter guardian's name"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name={["guardian", "phone"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input guardian's phone number!",
+                },
+              ]}
+              label="Guardian Phone"
+              placeholder="Enter guardian's phone number"
+              type="text"
+              size="large"
+            />
+            <MyInp
+              name={["guardian", "email"]}
+              label="Guardian Email"
+              placeholder="Enter guardian's email"
+              type="email"
+              size="large"
+            />
+            <MyInp
+              name={["guardian", "age"]}
+              rules={[
+                {
+                  required: true,
+                  message: "Please input guardian's age!",
+                },
+              ]}
+              label="Guardian Age"
+              placeholder="Enter guardian's age"
+              type="text"
+              size="large"
+            />
+          </div>
+        </div>
+
+        {/* Academic Information */}
+        {isLoadingAcademicDepartments || isLoadingBatches ? (
+          <>
+            <Skeleton active className="!my-2" />
+          </>
+        ) : (
           <div>
             <h3 className="text-lg font-semibold mb-2 mt-6">
               Academic Information
@@ -294,7 +392,6 @@ const StudentModal = ({
                   disabled={editingStudent ? true : false}
                   onChange={(e) => {
                     setSelectedAcademicDepartment(e);
-                    console.log(e, "e");
                   }}
                   options={academicDepartments?.data?.map(
                     (item: TAcademicDepartment) => ({
@@ -310,38 +407,39 @@ const StudentModal = ({
                 placeholder="Select batch"
                 type="select"
                 size="large"
-                disabled={editingStudent ? true : false}
+                disabled={
+                  editingStudent || !selectedAcademicDepartment ? true : false
+                }
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select a batch!",
+                  },
+                ]}
                 options={batches?.data?.map((item: TBatch) => ({
                   value: item?._id,
                   label: <span>{item?.batch}</span>,
                 }))}
               />
-              <MyInp
-                name={["academicInfo", "admissionDate"]}
-                label="Admission Date"
-                disabled={editingStudent ? true : false}
-                placeholder="Select admission date"
-                type="date"
-                size="large"
-              />
             </div>
           </div>
-          {/* Submit button */}
-          <Form.Item>
-            <Button
-              type="primary"
-              loading={
-                editingStudent ? isLoadingCreateStudent : isLoadingCreateStudent
-              }
-              htmlType="submit"
-              block
-              size="large"
-            >
-              {editingStudent ? "Update student" : "Insert student"}
-            </Button>
-          </Form.Item>
-        </Form>
-      )}
+        )}
+        {/* Submit button */}
+        <Form.Item>
+          <Button
+            type="primary"
+            loading={
+              editingStudent ? isLoadingUpdateStudent : isLoadingCreateStudent
+            }
+            disabled={isLoadingBatches || isLoadingAcademicDepartments}
+            htmlType="submit"
+            block
+            size="large"
+          >
+            {editingStudent ? "Update student" : "Add student"}
+          </Button>
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };
