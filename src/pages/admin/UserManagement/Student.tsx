@@ -17,7 +17,7 @@ import {
 } from "../../../redux/features/admin/userManagementApi";
 import { TStudent } from "../../../types/student.types";
 import moment from "moment";
-import StudentDetailsModal from "../../../components/modal/admin/userManagement/StudentDetailsModal";
+import StudentDetailsModal from "../../../components/modal/admin/userManagement/FacultyDetailsModal";
 import StudentModal from "../../../components/modal/admin/userManagement/StudentModal";
 
 const Student = () => {

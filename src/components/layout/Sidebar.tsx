@@ -6,6 +6,8 @@ import { facultyPaths } from "../../routes/paths/facultyPaths";
 import { studentPaths } from "../../routes/paths/studentPaths";
 import { role } from "../../constant/index.constant";
 import { useAppSelector } from "../../redux/hook";
+import verifyJwtToken from "../../utils/verifyJwtToken";
+import { TDecodedUser } from "../../types/index.type";
 
 const { Sider } = Layout;
 
@@ -20,7 +22,11 @@ type TSidebarItems = {
 // };
 
 const Sidebar: React.FC = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const token = useAppSelector((state) => state.auth?.token);
+  let user;
+  if (token) {
+    user = verifyJwtToken(token) as TDecodedUser;
+  }
 
   let sidebarItems: TSidebarItems[] = [];
   if (user?.role === role.ADMIN) {

@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <PrivateRoute>
+      <PrivateRoute role="admin">
         <DashboardLayout />
       </PrivateRoute>
     ),
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
   {
     path: "/faculty",
     element: (
-      <PrivateRoute>
+      <PrivateRoute role="faculty">
         <DashboardLayout />
       </PrivateRoute>
     ),
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
   {
     path: "/student",
     element: (
-      <PrivateRoute>
+      <PrivateRoute role="student">
         <DashboardLayout />
       </PrivateRoute>
     ),
