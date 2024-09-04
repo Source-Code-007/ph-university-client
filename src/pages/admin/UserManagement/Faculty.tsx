@@ -48,12 +48,25 @@ const Faculty = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      render: (name: TFaculty["name"]) =>
-        `${name.firstName} ${name.middleName ? name.middleName : ""} ${
-          name.lastName
-        }`,
+      title: "User",
+      key: "User",
+      render: (record: TFaculty) => (
+        <div className="flex items-center gap-2">
+          <img
+            className="w-10 h-10"
+            src={record.profileImg}
+            alt={record?.name?.lastName as string}
+          />
+          <div className="space-y-1">
+            <h2 className="font-semibold">
+              {`${record.name?.firstName} 
+              ${record.name?.middleName ? record.name?.middleName : ""}
+              ${record.name?.lastName}`}
+            </h2>
+            <p>{record?.designation}</p>
+          </div>
+        </div>
+      ),
     },
     {
       title: "Id",
@@ -61,31 +74,31 @@ const Faculty = () => {
       key: "Id",
     },
     {
-      title: "Designation",
-      dataIndex: "designation",
-      key: "Id",
-    },
-    {
       title: "department",
       dataIndex: "academicDepartment",
+      key: "Department",
       render: (academicDepartment: TFaculty["academicDepartment"]) =>
         academicDepartment.name,
     },
     {
       title: "Email",
       dataIndex: "email",
+      key: "email",
     },
     {
       title: "Phone",
       dataIndex: "phone",
+      key: "phone",
     },
     {
       title: "Date of Birth",
       dataIndex: "dateOfBirth",
+      key: "DOB",
       render: (text: Date) => moment(text).format("DD-MM-YYYY"),
     },
     {
       title: "Actions",
+      key: "Actions",
       render: (_: TFaculty, record: TFaculty) => {
         return (
           <div className="flex gap-2">

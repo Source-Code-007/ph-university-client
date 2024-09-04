@@ -17,8 +17,8 @@ import {
 } from "../../../redux/features/admin/userManagementApi";
 import { TStudent } from "../../../types/student.types";
 import moment from "moment";
-import StudentDetailsModal from "../../../components/modal/admin/userManagement/FacultyDetailsModal";
 import StudentModal from "../../../components/modal/admin/userManagement/StudentModal";
+import StudentDetailsModal from "../../../components/modal/admin/userManagement/StudentDetails";
 
 const Student = () => {
   const { Search } = Input;
@@ -48,12 +48,22 @@ const Student = () => {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      render: (name: TStudent["name"]) =>
-        `${name.firstName} ${name.middleName ? name.middleName : ""} ${
-          name.lastName
-        }`,
+      title: "User",
+      key: "User",
+      render: (record: TStudent) => (
+        <div className="flex items-center gap-2">
+          <img
+            className="w-10 h-10"
+            src={record.profileImg}
+            alt={record?.name?.lastName as string}
+          />
+          <h2 className="font-semibold">
+            {`${record.name?.firstName} 
+              ${record.name?.middleName ? record.name?.middleName : ""}
+              ${record.name?.lastName}`}
+          </h2>
+        </div>
+      ),
     },
     {
       title: "Id",

@@ -1,3 +1,4 @@
+import { TAdmin } from "../../../types/admin.types";
 import { TFaculty } from "../../../types/faculty.types";
 import { TQueryParam } from "../../../types/index.type";
 import { TStudent } from "../../../types/student.types";
@@ -97,6 +98,50 @@ export const userManagementApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["faculty"],
     }),
+    insertAdmin: builder.mutation({
+      query: (payload) => {
+        return {
+          url: "/users/create-admin",
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["admin"],
+    }),
+    getAllAdmin: builder.query({
+      query: (filter) => {
+        const params = new URLSearchParams();
+        filter.forEach((item: TQueryParam) => {
+          params.append(item.name, item.value as string);
+        });
+
+        return {
+          url: "/admins",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["admin"],
+    }),
+    updateAdmin: builder.mutation({
+      query: (payload: Partial<TAdmin>) => {
+        return {
+          url: `/admins/${payload?._id}`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["admin"],
+    }),
+    deleteAdmin: builder.mutation({
+      query: (id) => {
+        return {
+          url: `/admins/${id}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["admin"],
+    }),
   }),
 });
 
@@ -109,4 +154,8 @@ export const {
   useGetAllFacultyQuery,
   useUpdateFacultyMutation,
   useDeleteFacultyMutation,
+  useInsertAdminMutation,
+  useGetAllAdminQuery,
+  useUpdateAdminMutation,
+  useDeleteAdminMutation,
 } = userManagementApi;

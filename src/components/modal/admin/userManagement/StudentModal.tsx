@@ -63,9 +63,6 @@ const StudentModal = ({
   }, [form, editingStudent]);
 
   const handleCreateStudent = async (values: TStudent) => {
-    console.log(values, "values");
-
-    // return;
     try {
       const result = (await createStudent(
         values
@@ -75,12 +72,11 @@ const StudentModal = ({
       } else {
         message.error(result?.message);
       }
-    } catch (e: any) {
-      message.error(e?.data?.message || e?.message || "Failed to add student");
-    } finally {
-      setEditingStudent(null);
       setModalVisible(false);
       form.resetFields();
+      setEditingStudent(null);
+    } catch (e: any) {
+      message.error(e?.data?.message || e?.message || "Failed to add student");
     }
   };
 
@@ -95,14 +91,13 @@ const StudentModal = ({
       } else {
         message.error(res?.message);
       }
+      setModalVisible(false);
+      form.resetFields();
+      setEditingStudent(null);
     } catch (error: any) {
       message.error(
         error?.data?.message || error?.message || "Failed to update student"
       );
-    } finally {
-      setEditingStudent(null);
-      setModalVisible(false);
-      form.resetFields();
     }
   };
 
@@ -170,6 +165,7 @@ const StudentModal = ({
           <div className="flex flex-wrap gap-4">
             <MyInp
               name="gender"
+              disabled={editingStudent ? true : false}
               rules={[
                 {
                   required: true,
@@ -188,6 +184,7 @@ const StudentModal = ({
             />
             <MyInp
               name="dateOfBirth"
+              disabled={editingStudent ? true : false}
               rules={[
                 {
                   required: true,
@@ -202,6 +199,7 @@ const StudentModal = ({
             <MyInp
               name="bloodGroup"
               label="Blood Group"
+              disabled={editingStudent ? true : false}
               placeholder="Enter blood group"
               rules={[
                 {
@@ -251,15 +249,12 @@ const StudentModal = ({
             {!editingStudent && (
               <MyInp
                 name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input password!",
-                  },
-                ]}
+                defaultValue="1234@@aA"
                 label="Password"
                 placeholder="Enter password"
-                type="password"
+                type="text"
+                disabled
+                prefix="🔒"
                 size="large"
               />
             )}
@@ -268,6 +263,7 @@ const StudentModal = ({
           <div className="flex flex-wrap gap-4">
             <MyInp
               name="nid"
+              disabled={editingStudent ? true : false}
               rules={[
                 {
                   required: true,
