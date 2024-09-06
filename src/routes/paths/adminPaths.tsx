@@ -1,11 +1,13 @@
 import AcademicDepartment from "../../pages/admin/AcademicManagement/AcademicDepartment";
 import AcademicFaculty from "../../pages/admin/AcademicManagement/AcademicFaculty";
+import Batch from "../../pages/admin/Batch";
 import Admin from "../../pages/admin/UserManagement/Admin";
 import Faculty from "../../pages/admin/UserManagement/Faculty";
 import Student from "../../pages/admin/UserManagement/Student";
 
 export const adminPaths = [
-  { name: "Dashboard", path: "dashboard", element: 'Admin home' },
+  { name: "Dashboard", path: "dashboard", element: "Admin home" },
+  { name: "Batch", path: "batch", element: <Batch /> },
   {
     name: "Academic management",
     children: [

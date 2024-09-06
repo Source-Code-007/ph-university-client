@@ -101,11 +101,6 @@ const Student = () => {
       dataIndex: "phone",
     },
     {
-      title: "Date of Birth",
-      dataIndex: "dateOfBirth",
-      render: (text: Date) => moment(text).format("DD-MM-YYYY"),
-    },
-    {
       title: "Actions",
       render: (_: TStudent, record: TStudent) => {
         return (
