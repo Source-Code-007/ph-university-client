@@ -22,6 +22,7 @@ type MyInpProps = {
   options?: { label: string; value: string }[];
   size?: "small" | "middle" | "large";
   prefix?: React.ReactNode;
+  mode?: "multiple" | "tags" | undefined;
 };
 
 // className="my-inp"
@@ -38,6 +39,7 @@ const MyInp: React.FC<MyInpProps> = ({
   defaultValue,
   value,
   prefix,
+  mode,
 }) => {
   return (
     <Form.Item name={name} label={label} rules={rules} className="flex-1">
@@ -76,6 +78,7 @@ const MyInp: React.FC<MyInpProps> = ({
           placeholder={placeholder}
           options={options}
           disabled={disabled}
+          mode={mode}
         />
       ) : type === "date" ? (
         <Input

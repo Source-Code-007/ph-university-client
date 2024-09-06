@@ -58,6 +58,7 @@ export const baseApi = createApi({
     "faculty",
     "admin",
     "batch",
+    "course",
   ],
   endpoints: () => ({}),
 });
