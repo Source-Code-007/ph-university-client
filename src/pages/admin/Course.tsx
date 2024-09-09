@@ -56,6 +56,7 @@ const Course = () => {
       key: "Code",
       dataIndex: "code",
     },
+    
     {
       title: "Prerequisite courses",
       key: "preRequisiteCourses",
