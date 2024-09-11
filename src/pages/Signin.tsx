@@ -6,6 +6,7 @@ import verifyJwtToken from "../utils/verifyJwtToken";
 import { Navigate, useNavigate } from "react-router-dom";
 import { TDecodedUser } from "../types/index.type";
 import MyInp from "../components/ui/Form/MyInp";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
 type TSigninFieldType = {
   id?: string;
@@ -63,6 +64,7 @@ const Signin = () => {
             name="id"
             label="Id"
             size="large"
+            prefix={<UserOutlined />}
             placeholder="Input your id"
             rules={[
               {
@@ -76,6 +78,7 @@ const Signin = () => {
             name="password"
             label="Password"
             size="large"
+            prefix={<LockOutlined />}
             placeholder="Input your password"
             rules={[
               {
