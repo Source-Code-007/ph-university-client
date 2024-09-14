@@ -44,6 +44,19 @@ export const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getMe: builder.query({
+      query: (token: string) => {
+        return {
+          url: "/users/me",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      },
+      providesTags: ["user"],
+
+    }),
   }),
 });
 
@@ -52,4 +65,5 @@ export const {
   useChangePasswordMutation,
   useForgetPasswordMutation,
   useResetPasswordMutation,
+  useGetMeQuery,
 } = authApi;

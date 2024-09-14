@@ -6,18 +6,18 @@ import {
   useGetSingleStudentQuery,
 } from "../redux/features/admin/userManagementApi";
 import { TStudent } from "../types/student.types";
-import { TAcademicDepartment } from "../types/academicDepartment.types";
 import { useToggleBloodDonorMutation } from "../redux/features/student/bloodBankApi";
 import { useAppSelector } from "../redux/hook";
 import { GiBlood } from "react-icons/gi";
 import { bloodGroup } from "../constant/index.constant";
 import { TBloodGroup } from "../types/index.type";
+import { useGetMeQuery } from "../redux/features/auth/authApi";
 
 const BloodBank = () => {
   const [pagination, setPagination] = useState({ limit: 10, page: 1 });
   const [toggleBloodDonor, { isLoading: isLoadingToggleBloodDonor }] =
     useToggleBloodDonorMutation();
-  const user = useAppSelector((state) => state.auth?.user);
+  const { user, token } = useAppSelector((state) => state.auth);
   const [filteredBg, setFilteredBg] = useState("");
 
   const {
@@ -30,8 +30,11 @@ const BloodBank = () => {
     { name: "isBloodDonor", value: true },
     ...(filteredBg ? [{ name: "bloodGroup", value: filteredBg }] : []),
   ]);
-  const { data: student, isLoading: isLoadingStudent } =
-    useGetSingleStudentQuery(user?.id, { skip: !user });
+  // const { data: student, isLoading: isLoadingStudent } =
+  //   useGetSingleStudentQuery(user?.id, { skip: !user });
+  const { data: me, isLoading: isLoadingMe } = useGetMeQuery(token as string, {
+    skip: !token,
+  });
 
   const columns = [
     {
@@ -90,6 +93,8 @@ const BloodBank = () => {
     }
   };
 
+  console.log(me, "me");
+
   return (
     <div className="">
       <div className="flex flex-col gap-4 justify-between mb-4 flex-wrap bg-white my-shadow-1 p-4 rounded-md w-4/6 sm:w-3/6 lg:w-2/6 mx-auto">
@@ -97,12 +102,12 @@ const BloodBank = () => {
           Blood bank
         </h2>
 
-        {isLoadingStudent ? (
-          <Skeleton.Button className="!h-[30px] !w-[200px]" />
+        {isLoadingMe ? (
+          <Skeleton.Button className="!h-[100px] !w-full" />
         ) : (
           <div className="flex flex-col gap-2">
             <div className="flex justify-center my-2 font-semibold text-lg">
-              {student?.data?.isBloodDonor ? (
+              {me?.data?.isBloodDonor ? (
                 <span className="flex gap-2 items-center">
                   I am a donor! <GiBlood className="text-red-500" />
                 </span>
@@ -118,7 +123,7 @@ const BloodBank = () => {
               loading={isLoadingToggleBloodDonor}
               onClick={toggleBloodDonorHandler}
             >
-              {student?.data?.isBloodDonor ? "Withdraw donorship" : "I agree"}
+              {me?.data?.isBloodDonor ? "Withdraw donorship" : "I agree"}
             </Button>
           </div>
         )}

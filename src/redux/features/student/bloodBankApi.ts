@@ -9,7 +9,7 @@ export const bloodBankApi = baseApi.injectEndpoints({
           method: "PATCH",
         };
       },
-      invalidatesTags: ["student"],
+      invalidatesTags: ["student", "user"],
     }),
   }),
 });

@@ -54,6 +54,7 @@ export const baseApi = createApi({
   tagTypes: [
     "academicFaculty",
     "academicDepartment",
+    "user",
     "student",
     "faculty",
     "admin",
