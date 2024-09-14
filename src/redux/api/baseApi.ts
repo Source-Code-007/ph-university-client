@@ -59,6 +59,7 @@ export const baseApi = createApi({
     "admin",
     "batch",
     "course",
+    "bloodBank",
   ],
   endpoints: () => ({}),
 });

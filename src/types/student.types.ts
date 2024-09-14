@@ -46,5 +46,6 @@ export type TStudent = {
   permanentAddress: string;
   guardian: TGuardian;
   bloodGroup: TBloodGroup;
+  isBloodDonor: TBloodGroup;
   isDeleted: boolean;
 };

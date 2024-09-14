@@ -32,6 +32,15 @@ export const userManagementApi = baseApi.injectEndpoints({
       },
       providesTags: ["student"],
     }),
+    getSingleStudent: builder.query({
+      query: (id) => {
+        return {
+          url: `/students/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["student"],
+    }),
 
     updateStudent: builder.mutation({
       query: (payload: Partial<TStudent>) => {
@@ -148,6 +157,7 @@ export const userManagementApi = baseApi.injectEndpoints({
 export const {
   useInsertStudentMutation,
   useGetAllStudentQuery,
+  useGetSingleStudentQuery,
   useUpdateStudentMutation,
   useDeleteStudentMutation,
   useInsertFacultyMutation,

@@ -20,10 +20,10 @@ const PrivateRoute = ({
   }
 
   if (user?.role != role) {
-    return <Navigate to={"/signin"} replace />; //TODO back to location history
+    return <Navigate to={"/"} replace />; //TODO back to location history
   }
   if (!token) {
-    return <Navigate to={"/signin"} replace />; //TODO back to location history
+    return <Navigate to={"/"} replace />; //TODO back to location history
   }
 
   return children;

@@ -5,8 +5,9 @@ import { adminPaths } from "./paths/adminPaths";
 import { facultyPaths } from "./paths/facultyPaths";
 import { studentPaths } from "./paths/studentPaths";
 import Signin from "../pages/Signin";
-import Signup from "../pages/Signup";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
+import ForgetPassword from "../pages/ForgetPassword";
+import ResetPassword from "../pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -14,8 +15,12 @@ const router = createBrowserRouter([
     element: <Signin />,
   },
   {
-    path: "/signup",
-    element: <Signup />,
+    path: "/forget-password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "/admin",

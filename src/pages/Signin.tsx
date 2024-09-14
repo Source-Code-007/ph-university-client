@@ -1,9 +1,9 @@
-import { Button, Form, FormProps, Input, message, Typography } from "antd";
+import { Button, Form, FormProps, message, Typography } from "antd";
 import { useSigninMutation } from "../redux/features/auth/authApi";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { setUser } from "../redux/features/auth/authSlice";
 import verifyJwtToken from "../utils/verifyJwtToken";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { TDecodedUser } from "../types/index.type";
 import MyInp from "../components/ui/Form/MyInp";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -96,6 +96,14 @@ const Signin = () => {
           >
             Sign in
           </Button>
+
+          <div className="flex justify-end gap-4 flex-wrap ">
+            <Link to={"/forget-password"}>
+              <Button type="link" className="text-primary font-semibold">
+                Forget password?
+              </Button>
+            </Link>
+          </div>
         </Form>
       </div>
     </div>

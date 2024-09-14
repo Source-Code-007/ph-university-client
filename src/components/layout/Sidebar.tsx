@@ -8,6 +8,7 @@ import { role } from "../../constant/index.constant";
 import { useAppSelector } from "../../redux/hook";
 import verifyJwtToken from "../../utils/verifyJwtToken";
 import { TDecodedUser } from "../../types/index.type";
+import logo from "../../assets/img/logo.png";
 
 const { Sider } = Layout;
 
@@ -53,7 +54,9 @@ const Sidebar: React.FC = () => {
       className="!h-screen !sticky !top-0"
     >
       <div className="demo-logo-vertical" />
-      <h2 className="text-xl md:text-2xl text-white text-center py-2">UMS</h2>
+      <h2 className="text-xl md:text-2xl text-white text-center py-2">
+        <img src={logo} className="w-[70px] mx-auto"/> UMS
+      </h2>
       <Menu
         // onClick={({ key }) => {
         //   key ? navigate(key) : navigate("/dashboard");
